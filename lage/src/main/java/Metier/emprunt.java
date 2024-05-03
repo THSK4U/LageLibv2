@@ -61,15 +61,5 @@ public class emprunt {
 		return "emprunt [id_emprunt=" + id_emprunt + ", date_demprunt=" + date_demprunt + ", date_retour=" + date_retour
 				+ ", id_livre=" + id_livre + ", id_membre=" + id_membre + "]";
 	}
-	
-	
-	
-	
-
+ 
 }
-/*
- * constructors
- *
-*getters and setters 
-*Declaration var from DB
-**/
