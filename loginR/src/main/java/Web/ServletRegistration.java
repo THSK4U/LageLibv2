@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import Dao.LoginDao;
 import Dao.MembreDaoImpl;
 import Metier.Membree;
 
@@ -29,19 +30,43 @@ public class ServletRegistration extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Registration.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 pocess(request, response);
+	}
+	
+	private void pocess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		  String action = request.getServletPath();
+	       
+	            switch (action) {
+	                case "/Registration":
+	                	processRegistration(request, response);
+	                    break;
+	                case "/login":
+	                	processLogin(request, response);
+	                    break;
+	                case "/":
+	                	processRegistration2n(request, response);
+	                    break;
+	            }
+	}
+	
+	private void processRegistration2n(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 		
-		String prenom_mb = request.getParameter("prenom_mb");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Registration.jsp");
+		dispatcher.forward(request, response);
+	}
+	 
+    private void processRegistration(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	String prenom_mb = request.getParameter("prenom_mb");
 		String nom_mb = request.getParameter("nom_mb");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -56,16 +81,24 @@ public class ServletRegistration extends HttpServlet {
 		membre.setLadresse(ladresse);
 		membre.setNumérotéléphone(numérotéléphone);
 		
+		membreDaoImpl.registerEmployee(membre);
 
-		try {
-			membreDaoImpl.registerEmployee(membre);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		    response.sendRedirect(request.getContextPath() + "/login");
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Registrationdetails.jsp");
-		dispatcher.forward(request, response);
-	}
+    }
 
+    private void processLogin(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	 String username = request.getParameter("username");
+         String password = request.getParameter("password");
+
+         MembreDaoImpl membre = LoginDao.authenticate(username, password);
+
+         if (membre != null) {
+             // Authentification échouée, rediriger vers une page d'échec
+             
+             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Registration.jsp");
+             dispatcher.forward(request, response);
+         }
+    }
 }
