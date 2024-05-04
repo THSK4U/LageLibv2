@@ -134,7 +134,7 @@
                 </div>
                 <div class="form-group">
                     <label>Image :</label>
-                    <input type="text" class="form-control" name="titre" value="<%= livre.getImage() %>">
+                    <input type="text" class="form-control" name="image" value="<%= livre.getImage() %>">
                 </div>
                 <div class="form-group">
                     <label>L'auteur:</label>
@@ -143,6 +143,10 @@
                 <div class="form-group">
                     <label>L'année de publication:</label>
                     <input type="text" class="form-control" name="lannéepublication" value="<%= livre.getLannéepublication() %>">
+                </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea type="text" class="form-control" name="description"><%= livre.getDescription() %></textarea>
                 </div>
                 <button type="submit" class="btn btn-dark">Save</button>
             </form>

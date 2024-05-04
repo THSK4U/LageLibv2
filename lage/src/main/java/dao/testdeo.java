@@ -8,14 +8,13 @@ import metier.statistic;
 public class testdeo {
 
 	public static void main(String[] args) {
-		/*LivresDaoimpli deo = new LivresDaoimpli();
+		LivresDaoimpli deo = new LivresDaoimpli();
 	
 		List<livers> list =  deo.ALLlist();
 		
 		for(livers liv: list) {
 			System.out.println(liv.toString());
-			} */
-		System.out.println("ok");
+			}
 
 		
 		/*

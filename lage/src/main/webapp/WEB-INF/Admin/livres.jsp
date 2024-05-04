@@ -169,6 +169,7 @@
     <th>Title</th>
     <th>Author</th>
     <th>Publication Year</th>
+    <th>Description</th>
     <th>Action</th>
   </tr>
   <% for(livers livre : li) { %>
@@ -182,6 +183,7 @@
     <td><%= livre.getTitre() %></td>
     <td><%= livre.getLauteur() %></td>
     <td><%= livre.getLannéepublication() %></td>
+    <td><textarea><%= livre.getDescription() %></textarea></td>
     
  <td>
      <a href="edit?id=<%= livre.getId_livre() %>" style="width: 6rem;" class="bg-success badge text-wrap text-white">Edit</a>

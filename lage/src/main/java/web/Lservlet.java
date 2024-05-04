@@ -113,21 +113,31 @@ public class Lservlet extends HttpServlet {
                 	Dashboard(request, response);
                     break;
                     
-                    //------------------------------------
+                    //-----------------Books-------------------
                 case "/livres" :
                 	RequestLivres(request, response);
                 	break;
                 	
+                case "/Information" :
+                	pageinfo(request, response);
+                	break;
                 	
             }
         }
     }
-//-------------------web---------------------------------
+//-------------------BOOKS---------------------------------
     private void RequestLivres(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<livers> livres = livresDaoimpli.ALLlist();
         request.setAttribute("Livre", livres);
         request.getRequestDispatcher("/WEB-INF/WEBPAGES/Listweb.jsp").forward(request, response);
+    }
+    private void pageinfo(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+        livers livr = livresDaoimpli.getLivres(id);
+        request.setAttribute("Livre", livr);
+      request.getRequestDispatcher("/WEB-INF/WEBPAGES/Info.jsp").forward(request, response);
     }
     
 //------------Dashboard------------------------------
@@ -212,9 +222,11 @@ public class Lservlet extends HttpServlet {
         String image = request.getParameter("image");
         String titre = request.getParameter("titre");
         String lauteur = request.getParameter("lauteur");
+        String description = request.getParameter("description");
+
         int lannéepublication = Integer.parseInt(request.getParameter("lannéepublication"));
 
-        livers livr = new livers(titre, lauteur, lannéepublication,image);
+        livers livr = new livers(titre, lauteur, lannéepublication,image,description);
         
         livresDaoimpli.save(livr);
         response.sendRedirect(request.getContextPath() + "/List");
@@ -228,9 +240,11 @@ public class Lservlet extends HttpServlet {
         String image = request.getParameter("image");
         String titre = request.getParameter("titre");
         String lauteur = request.getParameter("lauteur");
+        String description = request.getParameter("description");
+
         int lannéepublication = Integer.parseInt(request.getParameter("lannéepublication"));
 
-        livers livr = new livers(id, titre, lauteur, lannéepublication,image);
+        livers livr = new livers(id,titre, lauteur, lannéepublication,image,description);
         livresDaoimpli.update(livr);
 
         response.sendRedirect(request.getContextPath() + "/List");
