@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import metier.admin;
 import metier.livers;
+import metier.Membre;
 
 public class LivresDaoimpli implements ILiverdao{
 
@@ -36,7 +37,28 @@ public class LivresDaoimpli implements ILiverdao{
 					return admin;
 
 		}
-	
+
+	public List<Membre> getMembers() {
+	    List<Membre> members = new ArrayList<>();
+
+	    Connection connection = SConnection.getConnection();
+	    try {
+	        PreparedStatement preparedStatement = 
+	                connection.prepareStatement("select username, password from Membres");
+	        ResultSet rs = preparedStatement.executeQuery();
+	        while (rs.next()) {
+	            String name = rs.getString("username");
+	            String password = rs.getString("password");
+	            
+	            members.add(new Membre(name, password));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return members;
+	}
+
 	
 	
 	//select All
@@ -56,7 +78,9 @@ public class LivresDaoimpli implements ILiverdao{
 						String lauteur = rs.getString("lauteur");
 						int  lannéepublication = rs.getInt("lannéepublication");
 						String image = rs.getString("image");
-						list.add(new livers(id,titre,lauteur,lannéepublication,image));
+						String description = rs.getString("description");
+
+						list.add(new livers(id,titre,lauteur,lannéepublication,image,description));
 						System.out.println(list);
 					}
 					
@@ -68,7 +92,38 @@ public class LivresDaoimpli implements ILiverdao{
 				return list;
 
 	}
-	
+	//Recherch Last
+    @Override
+    public List<livers> getlastLivres() {
+       	List<livers> last = new ArrayList<>();
+
+    	Connection connection = SConnection.getConnection();
+    				try {
+    					PreparedStatement preparedStatement = 
+    		                    connection.prepareStatement("SELECT * FROM Livres order by id_livre desc limit 10");
+    					ResultSet rs = preparedStatement.executeQuery();
+    					while (rs.next()) {
+    						int id = rs.getInt("id_livre");
+    						String  titre = rs.getString("titre");
+    						System.out.println(titre);
+    						String lauteur = rs.getString("lauteur");
+    						int  lannéepublication = rs.getInt("lannéepublication");
+    						String image = rs.getString("image");
+    						String description = rs.getString("description");
+
+    						last.add(new livers(id,titre,lauteur,lannéepublication,image,description));
+    						System.out.println(last);
+    					}
+    					
+    					
+    				} catch (SQLException e) {
+    					e.printStackTrace();
+    				}
+
+    				return last;
+
+    	}
+    
 	//Recherch by titre
     @Override
     public livers getLivresbynom(String titre) {
@@ -84,9 +139,10 @@ public class LivresDaoimpli implements ILiverdao{
                 String Titre = rs.getString("titre");
                 String lauteur = rs.getString("lauteur");
                 int lanneepublication = rs.getInt("lannéepublication");
-                String image = rs.getString("image");
+				String image = rs.getString("image");
+				String description = rs.getString("description");
 
-                livre = new livers(Id, Titre, lauteur, lanneepublication,image);
+                livre = new livers(Id,Titre,lauteur,lanneepublication,image,description);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,8 +166,9 @@ public class LivresDaoimpli implements ILiverdao{
                 String lauteur = rs.getString("lauteur");
                 int lanneepublication = rs.getInt("lannéepublication");
                 String image = rs.getString("image");
+				String description = rs.getString("description");
 
-                livre = new livers(livreId, titre, lauteur, lanneepublication,image);
+                livre = new livers(livreId, titre, lauteur, lanneepublication,image,description);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,17 +187,19 @@ public class LivresDaoimpli implements ILiverdao{
             updatedLivres.setTitre(p.getTitre());
             updatedLivres.setLauteur(p.getLauteur());
             updatedLivres.setLannéepublication(p.getLannéepublication());
+            updatedLivres.setDescription(p.getDescription());
             updatedLivres.setImage(p.getImage());
 
             
             PreparedStatement ps = connection.prepareStatement(
-                "UPDATE Livres SET titre=?, lauteur=?, lannéepublication=?, image=? WHERE id_livre=?"
+                "UPDATE Livres SET titre=?, lauteur=?, lannéepublication=?, image=?, description=? WHERE id_livre=?"
             );
             ps.setString(1, p.getTitre());
             ps.setString(2, p.getLauteur());
             ps.setInt(3, p.getLannéepublication());
             ps.setString(4, p.getImage());
-            ps.setLong(5, p.getId_livre());
+            ps.setString(5, p.getDescription());
+            ps.setLong(6, p.getId_livre());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -188,12 +247,13 @@ public class LivresDaoimpli implements ILiverdao{
     	Connection connection = SConnection.getConnection();
 		 try {
 	            PreparedStatement stmt = connection.prepareStatement(
-	                        "INSERT INTO Livres (titre, lauteur, lannéepublication, image) VALUES (?, ?, ?, ?)"
+	                        "INSERT INTO Livres (titre, lauteur, lannéepublication, image,description) VALUES (?, ?, ?, ?,?)"
 	                    );
 	              stmt.setString(1, p.getTitre());
 	              stmt.setString(2, p.getLauteur());
 	              stmt.setInt(3, p.getLannéepublication());
 	              stmt.setString(4, p.getImage());
+	              stmt.setString(5, p.getDescription());
 	              stmt.executeUpdate();
 
 

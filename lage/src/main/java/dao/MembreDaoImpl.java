@@ -32,6 +32,33 @@ public class MembreDaoImpl implements MembreDao {
 		return Membres;
 		
 	}
+	
+	@Override
+	public Membre signup(Membre M) {
+		Connection connection = SConnection.getConnection();
+	    try {
+	         PreparedStatement PreSt = connection.prepareStatement(
+	        		 "INSERT INTO Membres (nom_mb, ladresse,numérotéléphone,username, password) VALUES (?, ?, ?, ?, ?)");
+	        
+	        PreSt.setString(1, M.getNom_mb());
+	        PreSt.setString(2, M.getLadresse());
+	        PreSt.setInt(3, M.getNumérotéléphone());
+	        PreSt.setString(4, M.getUsername());
+	        PreSt.setString(5, M.getPassword());
+	        PreSt.executeUpdate();
+	        
+	        PreparedStatement PreSt2 = connection.prepareStatement("SELECT LAST_INSERT_ID() AS last_id");
+	        ResultSet rs = PreSt2.executeQuery();
+	        if (rs.next()) {
+	            M.setId_membre(rs.getLong("last_id"));
+	        }
+	        PreSt2.close();
+	        PreSt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return M;
+	}
 
 	@Override
 	public Membre save(Membre M) {

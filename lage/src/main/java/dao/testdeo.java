@@ -8,16 +8,18 @@ import metier.statistic;
 public class testdeo {
 
 	public static void main(String[] args) {
-		/*LivresDaoimpli deo = new LivresDaoimpli();
+		LivresDaoimpli deo = new LivresDaoimpli();
 	
 		List<livers> list =  deo.ALLlist();
 		
 		for(livers liv: list) {
 			System.out.println(liv.toString());
-			} */
-		System.out.println("ok");
+			}
 
-		
+
+        livers L3 = deo.save(new livers("Les Misérables","Victor Hugo", 1862,"sdvxcv","fswdx"));
+        System.out.println(L3);
+        
 		/*
 		 * L2.setTitre("Le parfum"); L2.setLauteur(" Patrick Süskind");
 		 * L2.setLannéepublication(1985); deo.update(L2);

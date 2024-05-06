@@ -103,6 +103,8 @@
                             </div>
             </li>
         </ul>
+         <a href="/lage/">Log out</a>
+        
     </div>
  <% for(statistic stat : (List<statistic>) request.getAttribute("statistic")) { %>
 

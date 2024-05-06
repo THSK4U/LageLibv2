@@ -22,7 +22,7 @@
 }
 
 .background{
-    background-color: rgb(248, 245, 240);
+    background-color: #f4f4f9;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -36,25 +36,6 @@
     position: absolute;
     right: 0;
     opacity: 0.14;
-}
-
- .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 200px;
-    background-color: #ffdba2;
-    overflow-y: auto;
-}
-
-.nav-link {
-    color: #000000 !important;
-}
-.nav-link:hover {
-    background-color: #F8F5F0 !important;
-    border-radius:20px 0 0 20px ;
-    width: 100%;
 }
 
 .custom-shape-divider-bottom-1714556739 {
@@ -80,7 +61,7 @@
 
 .search {
     position: absolute;
-    left: 17%;
+    left: 300px;
     top: 5%;
     width: 80%;
     display: flex;
@@ -139,19 +120,17 @@
 
   .Livres{
     position: absolute;
-    left: 243px;
+    left: 300px;
     top: 130px;
     width: 80%;
     height: 100%;
-    gap: 80px;
+    gap: 20px;
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-
-    justify-content: space-evenly;
+    flex-wrap: wrap;    
   }
 
-  .livre{
+  .livre{  
+  	display: block;
     width: 170px;
     height: 316px;
     border-radius: 14px;
@@ -164,10 +143,10 @@
     background-color: white;
   }
  
-.image{
+	.image{
     display: flex;
     justify-content: space-evenly;
-}
+	}
   .image img{
     width: 147px;
     height: 222px;
@@ -177,52 +156,91 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    white-space:pre;
+	overflow:hidden;
+	text-overflow: ellipsis;
+    margin-top: 5px;
+    font-size: 14px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+
   }
+  
   .titre p{
     font-size: large;
+    margin:0;
   }
+  .titre a {
+  color: #BFBFBF;
+  font-size: 12px;
+  
+  }
+  
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background: #F6F3EE;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: auto;
+    padding-top: 20px;
+}
+
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        gab:20px;
+        padding: 10px 20px;
+        color: black;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: black;
+            text-decoration: none;
+    }
+
+    .sidebar-link .fas {
+        margin-right: 10px;
+    }
+
+    .sidebar-logout {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .logout-button {
+        padding: 10px 20px;
+        background: #d9534f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .logout-button:hover {
+        background: #c9302c;
+       color: white;
+    }
+
     </style>
 </head>
 <body>
-    
-    <div class="sidebar">
-        
-
-
-        <h2 style="color: #f8f9fa;">Menu</h2>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link Dashboard" href="Dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-            </li>
-            
-            <li class="nav-item">
-            <a class="nav-link collapsed List" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLivres" aria-expanded="false" aria-controls="collapseLayouts">
-                               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Livres
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLivres" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="List">Liste de livres</a>
-                                    <a class="nav-link" href="new">Ajouter un livre</a>
-                                </nav>
-                            </div>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link collapsed List" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMembers" aria-expanded="false" aria-controls="collapseLayouts">
-                               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Members
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseMembers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="Member">Liste des membres</a>
-                                    <a class="nav-link" href="Member/new">Ajouter un membre</a>
-                                </nav>
-                            </div>
-            </li>
-        </ul>
+     <div class="sidebar">
+        <a href="#" class="sidebar-link"><i class="fas fa-home"></i>Home</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-book"></i>Emprunter</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-heart"></i>Liste de souhaits</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-history"></i>Historique</a>
+        <div class="sidebar-logout">
+            <a href="/lage/" class="logout-button" >Log Out</a>
+        </div>
     </div>
     
     <!-- <div class="custom-shape-divider-bottom-1714556739">
@@ -238,7 +256,7 @@
         </div>
         
         <div class="search">
-            <input type="text" class="search__input" placeholder="Trouvez votre livre...">
+            <input type="text" id="searchInput" class="search__input" placeholder="Trouvez votre livre...">
             <button class="search__button">
                 <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
                     <g>
@@ -252,14 +270,16 @@
         <div class="Livres">
   <% for(livers livre : li) { %>
         
-            <div class="livre">
+            <div class="livre" onclick="redirectToNewPage('<%= livre.getId_livre() %>')"">
+            
                 <div class="image">
                     <img src="<%= livre.getImage() %>" alt="cover">
                 </div>
-                <div class="titre">
+                <div class="titre">                
                     <p><%= livre.getTitre() %></p>
                     <a><%= livre.getLauteur() %></a>
                 </div>
+               
             </div>
   <% } %>
 
@@ -267,6 +287,7 @@
     </div>
     
 </body>
+ <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -277,4 +298,30 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+    <script>
+    function redirectToNewPage(id) {
+        window.location.href = "Information?id=" + id;
+    }
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", function() {
+        searchLivres(searchInput.value.toLowerCase());
+    });
+
+    function searchLivres(query) {
+        const livres = document.querySelectorAll('.livre');
+
+        livres.forEach(livre => {
+            const titre = livre.querySelector('.titre p').textContent.toLowerCase();
+            const auteur = livre.querySelector('.titre a').textContent.toLowerCase();
+            console.log(auteur);
+            if (titre.includes(query) || auteur.includes(query)) {
+                livre.style.display = 'block';
+            } else {
+                livre.style.display = 'none';
+            }
+        });
+    }
+    
+    
+    </script>
 </html>

@@ -13,5 +13,6 @@ public interface ILiverdao {
 	public livers deletLivres(long id);
 	public livers getLivresbynom(String titre);
 	public List<admin> Admin();
+	List<livers> getlastLivres();
 	
 }

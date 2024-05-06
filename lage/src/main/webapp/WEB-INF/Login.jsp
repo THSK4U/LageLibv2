@@ -1,150 +1,109 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <style>
-            /* Importing fonts from Google */
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Login Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .background img{
+    transform: scaleX(-1);
+    max-width: 687px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    opacity: 0.2;
+    top:0;
+    z-index:-1;
+        }
 
-            /* Reseting */
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: 'Poppins', sans-serif;
-            }
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
 
-            body {
-                background: #ecf0f3;
-            }
+        .login-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
 
-            .wrapper {
-                max-width: 350px;
-                min-height: 500px;
-                margin: 80px auto;
-                padding: 40px 30px 30px 30px;
-                background-color: #ecf0f3;
-                border-radius: 15px;
-                box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
-            }
+        .login-header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+        }
 
-            .logo {
-                width: 80px;
-                margin: auto;
-            }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
 
-            .logo img {
-                width: 100%;
-                height: 80px;
-                object-fit: cover;
-                border-radius: 50%;
-                box-shadow: 0px 0px 3px #5f5f5f,
-                    0px 0px 0px 5px #ecf0f3,
-                    8px 8px 15px #a7aaa7,
-                    -8px -8px 15px #fff;
-            }
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-            .wrapper .name {
-                font-weight: 600;
-                font-size: 1.4rem;
-                letter-spacing: 1.3px;
-                padding-left: 10px;
-                color: #555;
-            }
+        .login-form button {
+            padding: 15px;
+            background-color: #0056b3;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
 
-            .wrapper .form-field input {
-                width: 100%;
-                display: block;
-                border: none;
-                outline: none;
-                background: none;
-                font-size: 1.2rem;
-                color: #666;
-                padding: 10px 15px 10px 10px;
-                /* border: 1px solid red; */
-            }
+        .login-form button:hover {
+            background-color: #004494;
+        }
 
-            .wrapper .form-field {
-                padding-left: 10px;
-                margin-bottom: 20px;
-                border-radius: 20px;
-                box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
-            }
+        .login-form a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #0056b3;
+            text-decoration: none;
+            font-size: 14px;
+        }
 
-            .wrapper .form-field .fas {
-                color: #555;
-            }
-
-            .wrapper .btn {
-                box-shadow: none;
-                width: 100%;
-                height: 40px;
-                background-color: #03A9F4;
-                color: #fff;
-                border-radius: 25px;
-                box-shadow: 3px 3px 3px #b1b1b1,
-                    -3px -3px 3px #fff;
-                letter-spacing: 1.3px;
-            }
-
-            .wrapper .btn:hover {
-                background-color: #039BE5;
-            }
-
-            .wrapper a {
-                text-decoration: none;
-                font-size: 0.8rem;
-                color: #03A9F4;
-            }
-
-            .wrapper a:hover {
-                color: #039BE5;
-            }
-
-            @media(max-width: 380px) {
-                .wrapper {
-                    margin: 30px 20px;
-                    padding: 40px 15px 15px 15px;
-                }
-            }
-        </style>
-
-
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-            rel="stylesheet">
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            rel="stylesheet">
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-            rel="stylesheet">
-        <link
-            href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-            rel="stylesheet">
-
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="logo">
-                <img src="https://as2.ftcdn.net/v2/jpg/04/75/00/99/1000_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg" alt="">
-            </div>
-
-            <form action="Login" method="post" class="p-3 mt-3">
-                <div class="form-field d-flex align-items-center">
-                    <span class="far fa-user"></span>
-                    <input type="text" name="username" id="username" placeholder="Username">
-                </div>
-                <div class="form-field d-flex align-items-center">
-                    <span class="fas fa-key"></span>
-                    <input type="password" name="password" id="password" placeholder="Password">
-                </div>
-                <button class="btn mt-3">Login</button>
-            </form>
+        .login-form a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="background">
+            <img src="https://mrkzgulfup.com/uploads/171466215535451.png" alt="booksback">
+        </div>
         
-        </div>  
-        
-    </body>
+<div class="login-container">
+    <div class="login-header">
+        <h2>Login to Library</h2>
+    </div>
+    <form action="Login" method="post" class="login-form">
+        <input type="text" name="username" id="username" placeholder="Username" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <a href="register">Create New Account</a>
+    </form>
+</div>
+
+</body>
 </html>

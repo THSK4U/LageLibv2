@@ -9,6 +9,7 @@ public class livers implements Serializable {
 	private String lauteur;
 	private int  lannéepublication;
 	private String  image;
+	private String  description;
 
 	public livers() {
 		super();
@@ -16,25 +17,35 @@ public class livers implements Serializable {
 	}
 	
 	//constructor
-	public livers(int id_livre, String titre, String lauteur, int lannéepublication,String image) {
+	public livers(int id_livre, String titre, String lauteur, int lannéepublication,String image,String  description) {
 		super();
 		this.id_livre = id_livre;
 		this.titre = titre;
 		this.lauteur = lauteur;
 		this.lannéepublication = lannéepublication;
 		this.image = image;
+		this.description = description;
 	}
 
-	public livers(String titre, String lauteur, int lannéepublication,String image) {
+	public livers(String titre, String lauteur, int lannéepublication,String image,String  description) {
 		super();
 		this.titre = titre;
 		this.lauteur = lauteur;
 		this.lannéepublication = lannéepublication;
 		this.image = image;
+		this.description = description;
 
 	}
 	
 	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public int getId_livre() {
 		return id_livre;
 	}
@@ -66,12 +77,14 @@ public class livers implements Serializable {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "livers [id_livre=" + id_livre + ", titre=" + titre + ", lauteur=" + lauteur + ", lannéepublication="
-				+ lannéepublication + ", image=" + image + "]";
+				+ lannéepublication + ", image=" + image + ", description=" + description + "]";
 	}
+	
+	
 
 	
 	 

@@ -143,6 +143,8 @@
                             </div>
             </li>
         </ul>
+                 <a href="/lage/">Log out</a>
+        
     </div>
     
 <body>

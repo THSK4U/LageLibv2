@@ -11,4 +11,5 @@ public interface MembreDao {
 	public Membre update(Membre p);
 	public Membre  deletMembre(int id);
 	public 	List<Membre> selectAllMembres();
+	Membre signup(Membre M);
 }

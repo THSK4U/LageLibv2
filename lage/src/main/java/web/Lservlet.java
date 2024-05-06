@@ -18,6 +18,7 @@ import dao.MembreDaoImpl;
 import dao.statisticDao;
 import dao.statisticImpli;
 import metier.Membre;
+import metier.Membree;
 
 @WebServlet("/")
 public class Lservlet extends HttpServlet {
@@ -113,22 +114,104 @@ public class Lservlet extends HttpServlet {
                 	Dashboard(request, response);
                     break;
                     
-                    //------------------------------------
+                    //-----------------Books-------------------
                 case "/livres" :
                 	RequestLivres(request, response);
                 	break;
                 	
-                	
+                case "/Information" :
+                	pageinfo(request, response);
+                	break;
+                	//-----signup--------
+                case "/register" :
+                	Register(request, response);
+                	break;
+                case "/regi" :
+                	regi(request, response);
+                	break;
             }
         }
     }
-//-------------------web---------------------------------
+    //--------------------register---------------------
+    private void Register(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/register.jsp").forward(request, response);
+    }
+    private void regi(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	  String fullName = request.getParameter("fullname");
+          String email = request.getParameter("email");
+          int phone = Integer.parseInt(request.getParameter("phone"));
+          String username = request.getParameter("username");
+          String password = request.getParameter("password");
+          
+          Membre membr = new Membre(fullName, email, phone,username,password);
+          membreDao.signup(membr);
+          
+          response.sendRedirect(request.getContextPath() + "/");
+      }
+    
+    
+//-------------------BOOKS---------------------------------
     private void RequestLivres(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<livers> livres = livresDaoimpli.ALLlist();
         request.setAttribute("Livre", livres);
         request.getRequestDispatcher("/WEB-INF/WEBPAGES/Listweb.jsp").forward(request, response);
     }
+    private void pageinfo(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+        livers livr = livresDaoimpli.getLivres(id);
+        request.setAttribute("Livre", livr);
+
+        List<livers> Last = livresDaoimpli.getlastLivres();
+        request.setAttribute("Last", Last);
+        
+      request.getRequestDispatcher("/WEB-INF/WEBPAGES/Info.jsp").forward(request, response);
+    }
+    //-------------login-----------------------
+    private void processLogin(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+    }
+    
+    private void Login(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String name = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        List<admin> admins = livresDaoimpli.Admin();
+        List<Membre> members = livresDaoimpli.getMembers();
+
+        boolean isAdmin = false;
+        boolean isMember = false;
+
+        for (admin admin : admins) {
+            if (name.equals(admin.getName_ad()) && password.equals(admin.getPassword())) {
+                isAdmin = true;
+                break;
+            }
+        }
+
+        for (Membre member : members) {
+            if (name.equals(member.getUsername()) && password.equals(member.getPassword())) {
+                isMember = true;
+                break;
+            }
+        }
+
+        if (isAdmin) {
+            response.sendRedirect(request.getContextPath() + "/Dashboard");
+        } else if (isMember) {
+            request.setAttribute("members", members);
+            response.sendRedirect(request.getContextPath() + "/livres");
+        } else {
+            request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+        }
+    }
+
+    
     
 //------------Dashboard------------------------------
 
@@ -147,27 +230,7 @@ public class Lservlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/Admin/livres.jsp").forward(request, response);
     }
     
-    private void processLogin(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-    }
-    
-    private void Login(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         String name = request.getParameter("username");
-         String passowrd = request.getParameter("password");
-         
-         List<admin> admin = livresDaoimpli.Admin();
-         
-         for (admin ad : admin) {
-
-         if (name.equals(ad.getName_ad()) && passowrd.equals(ad.getPassword())) {
-             response.sendRedirect(request.getContextPath() + "/Dashboard");
-         }else {
-             request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
-         }}
-    }
-    
+   
     private void Deletform(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Admin/Formdelet.jsp");
@@ -212,9 +275,11 @@ public class Lservlet extends HttpServlet {
         String image = request.getParameter("image");
         String titre = request.getParameter("titre");
         String lauteur = request.getParameter("lauteur");
+        String description = request.getParameter("description");
+
         int lannéepublication = Integer.parseInt(request.getParameter("lannéepublication"));
 
-        livers livr = new livers(titre, lauteur, lannéepublication,image);
+        livers livr = new livers(titre, lauteur, lannéepublication,image,description);
         
         livresDaoimpli.save(livr);
         response.sendRedirect(request.getContextPath() + "/List");
@@ -228,9 +293,11 @@ public class Lservlet extends HttpServlet {
         String image = request.getParameter("image");
         String titre = request.getParameter("titre");
         String lauteur = request.getParameter("lauteur");
+        String description = request.getParameter("description");
+
         int lannéepublication = Integer.parseInt(request.getParameter("lannéepublication"));
 
-        livers livr = new livers(id, titre, lauteur, lannéepublication,image);
+        livers livr = new livers(id,titre, lauteur, lannéepublication,image,description);
         livresDaoimpli.update(livr);
 
         response.sendRedirect(request.getContextPath() + "/List");

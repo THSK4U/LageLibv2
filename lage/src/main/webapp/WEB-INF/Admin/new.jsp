@@ -103,6 +103,8 @@
                             </div>
             </li>
         </ul>
+                 <a href="/lage/">Log out</a>
+        
     </div>
     
     <div class="container">
@@ -123,6 +125,10 @@
             <div class="form-group">
                 <label >L'année de publication:</label>
                 <input type="number" class="form-control" id="lannéepublication" name="lannéepublication">
+            </div>
+            <div class="form-group">
+                <label >Description:</label>
+                <textarea class="form-control" id="description" name="description"></textarea>
             </div>
             <button type="submit" class="btn btn-dark">Save</button>
         </form>
